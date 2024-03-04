@@ -2,32 +2,52 @@ import LoginCss from "./Login.module.css";
 import { object, string } from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 import { authContext } from "../../Context/LoggedAuthProvider/LoggedAuthProvider";
 import { Helmet } from "react-helmet";
+import { cartAuthContext } from "../../Context/CartAuthProvider/CartAuthProvider";
 
 export default function Login() {
+  useEffect(() => {
+  
+    <Helmet>
+    <meta charSet="utf-8" />
+    <title>Login</title>
+    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+  </Helmet>
+},[])
   const [isSeccess, setIsSeccess] = useState(null);
   const [errorMeaasge, setErrorMeaasge] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const navigate = useNavigate();
-  const {token, setToken} = useContext(authContext);
+  const { setToken,name } = useContext(authContext);
+  const { getProductDetails, getLoggedUserWishlist } =
+    useContext(cartAuthContext);
+  
+  function showPassword() {
+    document
+      .querySelector(".toggleEye")
+      .classList.toggle("fa-eye", "fa-eye-slash");
+    document.querySelector(".passwordInput").removeAttribute("type");
+  }
 
   async function sendLoginUserData(loginUserData) {
     try {
       const response = await axios.post(
-      // await axios.post(
+        // await axios.post(
         `https://ecommerce.routemisr.com/api/v1/auth/signin`,
         loginUserData
       );
 
       // console.log("in case of success ", response?.data);
       setIsSeccess(true);
-      localStorage.setItem("token",response.data.token);
-      setToken(response.data.token)
+      localStorage.setItem("token", response.data.token);
+      setToken(response.data.token);
       // console.log(response.data.token);
+      getProductDetails();
+      getLoggedUserWishlist();
       setTimeout(() => {
         setIsSeccess(false);
         navigate("/home");
@@ -72,94 +92,99 @@ export default function Login() {
 
   return (
     <>
-          <Helmet>
-        <meta charSet="utf-8" />
-        <title>Login</title>
-        {/* <link rel="canonical" href="http://mysite.com/example" /> */}
-      </Helmet>
-      <div className="w-75 m-auto py-5">
-        <h2>Login Now : </h2>
+        <div className="w-75 m-auto py-5">
+          <h2>Login Now : </h2>
 
-        {isSeccess ? (
-          <div className="alert alert-success text-center fw-bold h4">
-            Welcome Back
-          </div>
-        ) : (
-          ""
-        )}
-        {errorMeaasge ? (
-          <div className="alert alert-danger text-center fw-bold h4">
-            {errorMeaasge}
-          </div>
-        ) : (
-          ""
-        )}
-
-        <form
-          onSubmit={loginFormik.handleSubmit}
-          className="d-flex flex-column"
-        >
-          <label htmlFor="email">email :</label>
-          <input
-            className="my-2 form-control "
-            value={loginFormik.values.email}
-            onInput={loginFormik.handleBlur}
-            onChange={loginFormik.handleChange}
-            id="email"
-            type="email"
-            placeholder="Enter Your Email ..."
-          />
-          {loginFormik.errors.email && loginFormik.touched.email ? (
-            <div className="alert alert-danger w-100">
-              {loginFormik.errors.email}
+          {isSeccess ? (
+            <div className="alert alert-success text-center fw-bold h4">
+              Welcome Back {name}
             </div>
           ) : (
             ""
           )}
-          <label htmlFor="password">password :</label>
-          <input
-            className="my-2 form-control"
-            value={loginFormik.values.password}
-            onInput={loginFormik.handleBlur}
-            onChange={loginFormik.handleChange}
-            id="password"
-            type="password"
-            placeholder="Enter Your Password ..."
-          />
-          {loginFormik.errors.password && loginFormik.touched.password ? (
-            <div className="alert alert-danger w-100">
-              {loginFormik.errors.password}
+          {errorMeaasge ? (
+            <div className="alert alert-danger text-center fw-bold h4">
+              {errorMeaasge}
             </div>
           ) : (
             ""
           )}
-          <div className="forget d-flex  justify-content-between my-3">
-            <button className="btn btn-success py-2 px-4" type="submit">
-              {isLoading ? (
-                <RotatingLines
-                  visible={true}
-                  height="66"
-                  width="66"
-                  strokeColor="white"
-                  color="grey"
-                  strokeWidth="3"
-                  animationDuration="0.75"
-                  ariaLabel="rotating-lines-loading"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                />
-              ) : (
-                "Login"
-              )}
-            </button>
-            <Link className={LoginCss.reset} to="/forget">
-              Forget Password
-            </Link>
-          </div>
-        </form>
-      </div>
 
-      <div className="userModal"></div>
+          <form
+            onSubmit={loginFormik.handleSubmit}
+            className="d-flex flex-column"
+          >
+            <label htmlFor="email">email :</label>
+            <input
+              className="my-2 form-control "
+              value={loginFormik.values.email}
+              onInput={loginFormik.handleBlur}
+              onChange={loginFormik.handleChange}
+              id="email"
+              type="email"
+              placeholder="Enter Your Email ..."
+            />
+            {loginFormik.errors.email && loginFormik.touched.email ? (
+              <div className="alert alert-danger w-100">
+                {loginFormik.errors.email}
+              </div>
+            ) : (
+              ""
+            )}
+
+            <label htmlFor="password">password :</label>
+            <div className="position-relative w-100 h-25">
+              <input
+                className="my-2 form-control passwordInput"
+                value={loginFormik.values.password}
+                onInput={loginFormik.handleBlur}
+                onChange={loginFormik.handleChange}
+                id="password"
+                type="password"
+                placeholder="Enter Your Password ..."
+              />
+              <button
+                type="button"
+                onClick={showPassword}
+                className="border-0 bg-transparent eye"
+              >
+                <i className="fa-solid fa-eye-slash toggleEye"></i>
+              </button>
+            </div>
+            {loginFormik.errors.password && loginFormik.touched.password ? (
+              <div className="alert alert-danger w-100">
+                {loginFormik.errors.password}
+              </div>
+            ) : (
+              ""
+            )}
+            <div className="forget d-flex  justify-content-between my-3">
+              <button className="btn btn-success py-2 px-4" type="submit">
+                {isLoading ? (
+                  <RotatingLines
+                    visible={true}
+                    height="66"
+                    width="66"
+                    strokeColor="white"
+                    color="grey"
+                    strokeWidth="3"
+                    animationDuration="0.75"
+                    ariaLabel="rotating-lines-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                  />
+                ) : (
+                  "Login"
+                )}
+              </button>
+              <Link className={LoginCss.reset} to="/forget">
+                Forget Password
+              </Link>
+            </div>
+          </form>
+        </div>
+
+        <div className="userModal"></div>
     </>
   );
 }

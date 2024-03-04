@@ -1,13 +1,19 @@
-import { ThreeCircles } from "react-loader-spinner";
-import * as BrandsCss from "./Brands.module.css"
-import React from 'react'
+// import * as BrandsCss from "./Brands.module.css"
+import React, { useEffect } from 'react'
 import { useQuery } from "react-query";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-
+import Loader from "../Loader/Loader";
 
 export default function Brands() {
+  useEffect(() => {
+    <Helmet >
+    <meta charSet="utf-8" />
+    <title>Brands</title>
+    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+  </Helmet>
+  },[])
     // cache Data
     const { data, isError, isLoading, error } = useQuery(
       "getAllBrands",
@@ -16,19 +22,7 @@ export default function Brands() {
     );
     // loading spinner
     if (isLoading) {
-      return (
-        <div className="vh-100 d-flex justify-content-center bg-primary bg-opacity-50 align-items-center">
-          <ThreeCircles
-            visible={true}
-            height="150"
-            width="150"
-            color="#09c"
-            ariaLabel="three-circles-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-          />
-        </div>
-      );
+      return <Loader/>
     }
     if (isError) {
       return (
@@ -46,18 +40,13 @@ export default function Brands() {
   }
 
   return <>
-        <Helmet>
-        <meta charSet="utf-8" />
-        <title>Brands</title>
-        {/* <link rel="canonical" href="http://mysite.com/example" /> */}
-      </Helmet>
   <div className="container py-5">
     <div className="row g-4">
       
     {brand.map((brand,index)=>
             <div key={index} className="col-xl-3 col-lg-4 col-md-6">
               <div className="brand position-relative border border-3">
-                <Link to={`/brands/${brand._id}`}>
+                <Link to={`/subBrand/${brand._id}`}>
                   <img
                     className="w-100 "
                     style={{height:"200px",

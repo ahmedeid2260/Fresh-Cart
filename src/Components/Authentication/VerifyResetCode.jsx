@@ -18,7 +18,7 @@ const navigate = useNavigate();
             verifyResetCode
         );
     
-        console.log("in case of success ", response?.data);
+        // console.log("in case of success ", response?.data);
         setIsSeccess(true);
         setTimeout(() => {
             setIsSeccess(false);
@@ -26,7 +26,7 @@ const navigate = useNavigate();
         }, 2000);
         setIsLoading(false);
         } catch (error) {
-        console.log("in case of errors ", error?.response.data.message);
+        // console.log("in case of errors ", error?.response.data.message);
         setErrorMeaasge(error?.response.data.message);
         setTimeout(() => {
             setErrorMeaasge(false);

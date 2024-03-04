@@ -25,7 +25,7 @@ export default function Footer() {
             {/*Grid column*/}
             <div className="col-2">
               {/* Submit button */}
-              <button data-mdb-ripple-init type="submit" className="btn btn-success mb-4">
+              <button data-mdb-ripple-init type="button" className="btn btn-success mb-4">
                 Subscribe
               </button>
             </div>

@@ -2,17 +2,32 @@
 import { object, ref, string } from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-
 export default function Register() {
+  useEffect(() => {
+    
+    <Helmet>
+    <meta charSet="utf-8" />
+    <title>Register</title>
+    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+  </Helmet>
+  },[])
   const [isSeccess, setIsSeccess] = useState(null);
   const [errorMeaasge, setErrorMeaasge] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const navigate = useNavigate()
 
+  function showPassword(){
+    document.querySelector('.toggleEye').classList.toggle('fa-eye','fa-eye-slash');
+    document.querySelector(".passwordInput").removeAttribute("type");
+  }
+  function showRePassword(){
+    document.querySelector('.toggledEye').classList.toggle('fa-eye','fa-eye-slash');
+    document.querySelector(".rePasswordInput").removeAttribute("type");
+  }
   async function sendUserDate(userData) {
     try {
       // const response = await axios.post(
@@ -81,11 +96,6 @@ export default function Register() {
   });
   return (
     <>
-          <Helmet>
-        <meta charSet="utf-8" />
-        <title>Register</title>
-        {/* <link rel="canonical" href="http://mysite.com/example" /> */}
-      </Helmet>
       <div className="w-75 m-auto py-5">
         <h2>Register Now : </h2>
         {isSeccess ? (
@@ -157,8 +167,9 @@ export default function Register() {
           )}
 
           <label htmlFor="password">password :</label>
+          <div className="position-relative w-100 h-25">
           <input
-            className="my-2 form-control"
+            className="my-2 form-control passwordInput"
             value={formik.values.password}
             onInput={formik.handleBlur}
             onChange={formik.handleChange}
@@ -166,6 +177,10 @@ export default function Register() {
             type="password"
             placeholder="Enter Your Password ..."
           />
+            <button type="button" onClick={showPassword} className="border-0 bg-transparent eye">
+            <i className="fa-solid fa-eye-slash toggleEye"></i>
+            </button>
+          </div>
           {formik.errors.password && formik.touched.password ? (
             <div className="alert alert-danger w-100">
               {formik.errors.password}
@@ -175,8 +190,9 @@ export default function Register() {
           )}
 
           <label htmlFor="rePassword">rePassword :</label>
+          <div className="position-relative w-100 h-25">
           <input
-            className="my-2 form-control "
+            className="my-2 form-control rePasswordInput"
             value={formik.values.rePassword}
             onInput={formik.handleBlur}
             onChange={formik.handleChange}
@@ -184,6 +200,10 @@ export default function Register() {
             type="password"
             placeholder="Enter Your password ..."
           />
+            <button type="button" onClick={showRePassword} className="border-0 bg-transparent eye">
+            <i className="fa-solid fa-eye-slash toggledEye"></i>
+            </button>
+          </div>
           {formik.errors.rePassword && formik.touched.rePassword ? (
             <div className="alert alert-danger w-100">
               {formik.errors.rePassword}

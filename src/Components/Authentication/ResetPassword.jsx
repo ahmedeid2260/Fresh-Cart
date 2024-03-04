@@ -23,7 +23,7 @@ async function sendresetPasswordData(resetPasswordData) {
         resetPasswordData
     );
     
-    console.log("in case of success ", response?.data);
+    // console.log("in case of success ", response?.data);
     setIsSeccess(true);
     setToken(response?.data.token);
     // localStorage.setItem("newToken",response?.data.token)
@@ -34,7 +34,7 @@ async function sendresetPasswordData(resetPasswordData) {
     }, 2000);
     setIsLoading(false);
     } catch (error) {
-    console.log("in case of errors ", error?.response.data.message);
+    // console.log("in case of errors ", error?.response.data.message);
     setErrorMeaasge(error?.response.data.message);
     setTimeout(() => {
         setErrorMeaasge(false);

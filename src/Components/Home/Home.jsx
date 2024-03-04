@@ -1,15 +1,41 @@
 import HomeCss from "./Home.module.css";
 import axios from "axios";
-import { ThreeCircles } from "react-loader-spinner";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { cartAuthContext } from "../../Context/CartAuthProvider/CartAuthProvider";
 import Slider from "react-slick";
 import { Helmet } from "react-helmet";
-
+import Loader from "../Loader/Loader";
+import toast from "react-hot-toast";
 export default function Home() {
-  const { addToFavorite, addToCart } = useContext(cartAuthContext);
+  useEffect(() => {
+    
+    <Helmet>
+    <title>Home</title>
+</Helmet>
+  },[])
+  const { addToCart,addProductToWishlist } = useContext(cartAuthContext);
+  async function addMyProduct(productId){
+    const result = await addToCart(productId)
+    if(result){
+      toast.success("Product Added Successfully",{position:"top-center"})
+    }else{
+      toast.error("SomeThing Went Wrong.....",{position:"top-center"})
+    }
+  }
+  // const [toggleHeart, setToggleHeart] = useState(false);
+// ///////////////////////////////////
+  async function addToWishList(productId) {
+    const result = await addProductToWishlist(productId)
+    if (result) {
+      // setToggleHeart(result)
+      toast.success("Product Saved To WishList Successfully", { position: "top-center" })
+    }else{
+      toast.error("SomeThing Went Wrong.....",{position:"top-center"})
+    }
+}
+// /////////////////////////////////////
       // cache Data
       const categoryQuery = useQuery(
         "getAllCategories",
@@ -24,19 +50,7 @@ export default function Home() {
   );
   // loading spinner
   if (isLoading) {
-    return (
-      <div className="vh-100 d-flex justify-content-center bg-primary bg-opacity-50 align-items-center">
-        <ThreeCircles
-          visible={true}
-          height="150"
-          width="150"
-          color="#09c"
-          ariaLabel="three-circles-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-        />
-      </div>
-    );
+    return <Loader/>
   }
   if (isError) {
     return (
@@ -101,19 +115,7 @@ export default function Home() {
 
       // loading spinner
       if (categoryQuery.isLoading) {
-        return (
-          <div className="vh-100 d-flex justify-content-center bg-primary bg-opacity-50 align-items-center">
-            <ThreeCircles
-              visible={true}
-              height="150"
-              width="150"
-              color="#09c"
-              ariaLabel="three-circles-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-            />
-          </div>
-        );
+        return <Loader/>
       }
       if (categoryQuery.isError) {
         return (
@@ -132,11 +134,6 @@ export default function Home() {
   
   return (
     <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Home</title>
-        {/* <link rel="canonical" href="http://mysite.com/example" /> */}
-      </Helmet>
       <div className="container py-5">
         <div className="row">
           <div className="col-lg-9 col-md-6">
@@ -145,6 +142,7 @@ export default function Home() {
                 {product.map((pro, idx) =>
                   pro.images.map((img, index) => (
                     // <div style={{backgroundImage:`url("${img}")`}} className={HomeCss.img}    key={index}>
+                    <Link to={`/productDetails/${pro.id}`}>
                     <div className={HomeCss.img} key={index}>
                       <img
                         className="w-100 h-100"
@@ -152,6 +150,7 @@ export default function Home() {
                         alt={product.title}
                       />
                     </div>
+                    </Link>
                   ))
                 )}
               </Slider>
@@ -194,11 +193,6 @@ export default function Home() {
       )}
       </Slider>
     </div>
-        <input
-          className="form my-5 form-control w-75 mx-auto"
-          placeholder="Search...."
-          type="text"
-        />
         <div className="row g-4">
           {product.map((product, index) => (
             <div key={index} className="col-xl-3 col-lg-4 col-md-6">
@@ -210,7 +204,7 @@ export default function Home() {
                     alt={product.title}
                   />
                   {product.priceAfterDiscount ? (
-                    <div className={HomeCss.sale}>Sale</div>
+                    <div className="sale">Sale</div>
                   ) : (
                     ""
                   )}
@@ -238,24 +232,34 @@ export default function Home() {
                       {product.ratingsAverage}
                     </p>
                   </div>
-                  <h6>remains:{product.quantity}</h6>
+                  {/* <h6>remains:{product.quantity}</h6> */}
                 </Link>
                 <div className="d-flex justify-content-between fa-2x">
                   <button
                     onClick={function () {
-                      addToCart(product.id);
+                      addMyProduct(product.id);
                     }}
                     className="btn btn-success"
                   >
                     Add To Cart
                   </button>
+                  {/* ///////////////////// */}
                   <div
-                    onClick={function () {
-                      addToFavorite(product.id);
+                  role="button"
+                    className="heart"
+                    onClick={function (e) {
+                      e.target.classList.add("text-danger")
+                      addToWishList(product.id)
                     }}
-                    role="button"
                   >
                     <i className="fa-solid fa-heart"></i>
+                    {/* {toggleHeart ?
+                    <i className="fa-solid fa-heart text-danger"></i>
+                      :
+                    <i className="fa-solid fa-heart"></i>
+                    } */}
+                    {/* //////////////////////// */}
+                  {/* هنا ممكن اتشك هل ال id بتعا البرودكت موجود في صهسامهسف ولا لا لو اه يبقي نخلي لونه احمر */}
                   </div>
                 </div>
               </div>

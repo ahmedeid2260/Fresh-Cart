@@ -1,19 +1,26 @@
 import ResetCss from "./Reset.module.css"
 import { object, string } from 'yup';
 import { useFormik } from "formik";
-import React from 'react'
+import React, { useEffect } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
-
 export default function Reset() {
+    useEffect(() => {
+        
+    <Helmet>
+    <meta charSet="utf-8" />
+    <title>Reset</title>
+    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+</Helmet>
+    },[])
 async function sendResetUserData(resetUserData){
     try{
-    const response = await axios.post(`https://ecommerce.routemisr.com/api/v1/auth/forgotPasswords`,resetUserData)
-    console.log('reset success',response.data.message);
+    await axios.post(`https://ecommerce.routemisr.com/api/v1/auth/forgotPasswords`,resetUserData)
+    // console.log('reset success',response.data.message);
     }
     catch(error){
-    console.log('reset error',error.response.data.message);
+    // console.log('reset error',error.response.data.message);
     }
 }
 let initialValues={
@@ -32,16 +39,11 @@ const resetFormik = useFormik({
 })
 
 function Submit(values){
-    console.log("reset Successfully ....",values);
+    // console.log("reset Successfully ....",values);
     sendResetUserData(values);
 }
 
 return<>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Reset</title>
-        {/* <link rel="canonical" href="http://mysite.com/example" /> */}
-      </Helmet>
 <div className="w-75 m-auto py-5">
     <h2>Reset Password : </h2>
 
@@ -54,6 +56,6 @@ return<>
     </div>
         <button className="btn btn-success" type="submit">Reset</button>
     </form>
-</div>
+        </div>
 </>
 }

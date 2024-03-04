@@ -1,11 +1,18 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet';
-import { ThreeCircles } from 'react-loader-spinner';
 import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom';
-
+import Loader from '../Loader/Loader';
 export default function Subcategories() {
+  useEffect(() => {
+    
+    <Helmet>
+    <meta charSet="utf-8" />
+    <title>Category Details</title>
+    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+  </Helmet>
+  },[])
   const {id} = useParams();
   // cache Data
   const { data, isError, isLoading, error } = useQuery(
@@ -15,19 +22,7 @@ export default function Subcategories() {
   );
   // loading spinner
   if (isLoading) {
-    return (
-      <div className="vh-100 d-flex justify-content-center bg-primary bg-opacity-50 align-items-center">
-        <ThreeCircles
-          visible={true}
-          height="150"
-          width="150"
-          color="#09c"
-          ariaLabel="three-circles-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-        />
-      </div>
-    );
+    return <Loader/>
   }
   if (isError) {
     return (
@@ -52,11 +47,6 @@ function getsubcategories(){
 }
 
 return <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Category Details</title>
-        {/* <link rel="canonical" href="http://mysite.com/example" /> */}
-      </Helmet>
 <div className="container py-5">
 <Link to="/categories"><span role='button' className="text-white back border rounded bg-success bg-opacity-75 ms-3 mb-1 p-1 d-inline-block">
         <i className="fa-solid fa-arrow-left fa-2x"></i>
@@ -64,29 +54,30 @@ return <>
   <div className="row g-4 my-5">
     {subcategories.length===0?<div className="bg-main text-white text-center  container py-5">
       <h1>Brand List is Empty </h1>
-    </div>: <>{subcategories.map((subcategories,index)=>
+        </div> : <>{subcategories.map((subcategories, index) => (
           <div key={index} className="col-xl-3 col-lg-4 col-md-6">
             <div className="subcategories position-relative border border-3">
-              <Link to={`/subcategories/${subcategories.id}`}>
+              <Link to={`/SpecificSubCategories/${subcategories._id}`}>
                 <h2 style={{height:"100px"}} className=" text-success fw-bold py-3 text-center">
                   {subcategories.name}
                 </h2>
               </Link>
             </div>
-          </div>        
+          </div>        )
     )}</>
-    }
-  {subcategories.map((subcategories,index)=>
+  }
+  {/* {subcategories.map((subcategories,index)=>(
+  console.log(subcategories),
           <div key={index} className="col-xl-3 col-lg-4 col-md-6">
             <div className="subcategories position-relative border border-3">
-              <Link to={`/subcategories/${subcategories.id}`}>
+              <Link to={`/subcategories/${subcategories._id}`}>
                 <h2 style={{height:"100px"}} className=" text-success fw-bold py-3 text-center">
                   {subcategories.name}
                 </h2>
               </Link>
             </div>
-          </div>        
-    )}
+          </div>        )
+    )} */}
   </div>
 </div>
 </>

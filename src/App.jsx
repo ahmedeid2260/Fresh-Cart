@@ -21,23 +21,33 @@ import Subcategories from './Components/Categories/Subcategories';
 import VerifyResetCode from './Components/Authentication/VerifyResetCode';
 import ResetPassword from './Components/Authentication/ResetPassword';
 import Profile from './Components/Profile/Profile';
+import LoginProtection from './Components/LoginProtection/LoginProtection';
+import { Toaster } from 'react-hot-toast';
+import CheckOut from './Components/CheckOut/CheckOut';
+import AllOrders from './Components/AllOrders/AllOrders';
+import SubBrand from './Components/SubBrand/SubBrand';
+import SpecificSubCategories from './Components/SpecificSubCategory/SpecificSubGategory';
 
 const router = createBrowserRouter([
   { path:'/' , element:<Layout/> ,children:[
 
-    { index:true , element:<Register/> }, // route          done
-    { path:'' , element:<Register/> }, // route             done 
+    { index:true , element:<LoginProtection><Login/></LoginProtection> }, // route          done
+    { path:'' , element:<LoginProtection><Login/></LoginProtection> }, // route             done 
     { path:'home' , element:<ProtectedRoute><Home/></ProtectedRoute> }, // route             not yet
     { path:'profile' , element:<ProtectedRoute><Profile/></ProtectedRoute> }, // route             not yet
-    { path:'login' , element:<Login/> }, // route           done
-    { path:'forget' , element:<ForgetPassword/> }, // route           done
-    { path:'verify' , element:<VerifyResetCode/> }, // route           done
-    { path:'reset' , element:<ResetPassword/> }, // route           done
+    { path:'allorders' , element:<ProtectedRoute><AllOrders/></ProtectedRoute> }, // route             not yet
+    { path:'register' , element:<LoginProtection><Register/></LoginProtection> }, // route           done
+    { path:'forget' , element:<LoginProtection><ForgetPassword/></LoginProtection> }, // route           done
+    { path:'verify' , element:<LoginProtection><VerifyResetCode/></LoginProtection> }, // route           done
+    { path:'reset' , element:<LoginProtection><ResetPassword/></LoginProtection> }, // route           done
     { path:'cart' , element:<ProtectedRoute><Cart/></ProtectedRoute> }, // route             not yet
+    { path:'checkOut' , element:<ProtectedRoute><CheckOut/></ProtectedRoute> }, // route             not yet
     { path:'wishList' , element:<ProtectedRoute><WishList/></ProtectedRoute> }, // route             not yet
     { path:'products' , element:<ProtectedRoute><Products/></ProtectedRoute> }, // route     not yet
     { path:'categories' , element:<ProtectedRoute><Categories/></ProtectedRoute> }, // route not yet
     { path:'subcategories/:id' , element:<ProtectedRoute><Subcategories/></ProtectedRoute> }, // route not yet
+    { path:'SpecificSubCategories/:id' , element:<ProtectedRoute><SpecificSubCategories/></ProtectedRoute> }, // route not yet
+    { path:'subBrand/:id' , element:<ProtectedRoute><SubBrand/></ProtectedRoute> }, // route not yet
     { path:'brands' , element:<ProtectedRoute><Brands/></ProtectedRoute> }, // route         not yet
     { path:'productDetails/:id' , element:<ProtectedRoute><ProductDetails/></ProtectedRoute> }, // route         not yet
     { path:'*' , element:<NotFound/> }, // route            done
@@ -55,6 +65,7 @@ function App() {
     </CartAuthProvider>
   </LoggedAuthProvider>
 </QueryClientProvider>
+<Toaster/>
   </>
 }
 

@@ -6,9 +6,9 @@ import { authContext } from "../../Context/LoggedAuthProvider/LoggedAuthProvider
 import { cartAuthContext } from "../../Context/CartAuthProvider/CartAuthProvider";
 
 export default function Navbar() {
-  const {cartCounter }= useContext(cartAuthContext);
+  const {numOfCartItems,numOfWishListItems }= useContext(cartAuthContext);
+  const {token,name, setToken} = useContext(authContext);
 
-  const {token, setToken} = useContext(authContext);
   useEffect(()=>{
     const token=localStorage.getItem("token")
     if(token!=null){
@@ -16,13 +16,12 @@ export default function Navbar() {
     }
   },[]);
   const navigate= useNavigate()
- function logout(){
-   setToken(null)
-   localStorage.removeItem("token")
-  navigate("/login");
- } 
+function logout(){
+  setToken(null)
+  localStorage.removeItem("token")
+  navigate("/");
+} 
   return <>
-  {/* &gt; */}
   <nav className="navbar navbar-expand-lg bg-body-tertiary  fixed-top">
     <div className="container">
       <Link className="navbar-brand" to="/">
@@ -37,11 +36,26 @@ export default function Navbar() {
         <li className="nav-item">
             <Link className="nav-link active" to="home">Home</Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="cart">Cart</Link>
+          <li className="nav-item ">
+            <Link className="nav-link" to="cart">
+              <div className="position-relative p-1">
+                Cart
+            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                  {numOfCartItems}
+                </span>
+              </div>
+            </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="wishList">WishList</Link>
+            <Link className="nav-link" to="wishList">
+              
+              <div className="position-relative p-1">
+                WishList
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {numOfWishListItems}
+                </span>
+                </div>
+                </Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="products">Products</Link>
@@ -64,20 +78,23 @@ export default function Navbar() {
             <li><Link target="_blank" to="https://www.youtube.com"><i className="fa-brands fa-youtube"></i></Link></li>
           </ul>
           {token?<div className="d-flex align-items-center gap-5 position-relative">
-            <Link to='/profile'><span className={ NavbarCss.logout + `  ` }>Profile</span></Link>
+            <Link to='/profile'><span className={ NavbarCss.logout + `  ` }>{name}</span></Link>
             
             <span role="button" onClick={logout} className={ NavbarCss.logout + `  ` }>Logout</span>
-            <div className="position-relative">
-              <span className="cart">{cartCounter}</span>
+            {/* <Link to='/cart' >
+            <div className="position-relative">                                       
+            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                  {numOfCartItems}
+                </span>
             <i className={` fa-solid fa-cart-shopping fs-3`}></i>
-            </div>
+            </div></Link> */}
           </div>
           :<>
           <li className="nav-item">
-          <Link className="nav-link" to="login">Login</Link>
+          <Link className="nav-link" to="/">Login</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" aria-current="page" to="/">Register</Link>
+          <Link className="nav-link" aria-current="page" to="register">Register</Link>
         </li>
         </>
           }
