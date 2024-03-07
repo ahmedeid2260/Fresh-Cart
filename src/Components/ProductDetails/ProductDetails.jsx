@@ -11,14 +11,7 @@ import { Helmet } from 'react-helmet';
 import Loader from '../Loader/Loader';
 import toast from 'react-hot-toast';
 export default function ProductDetails() {
-    useEffect(() => {
-        
-    <Helmet>
-    <meta charSet="utf-8" />
-    <title> {details.title} Product</title>
-    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
-</Helmet>
-    },[])
+
     const { addToCart } = useContext(cartAuthContext);
     
     async function addMyProduct(productId){
@@ -49,7 +42,12 @@ var settings = {
     slidesToScroll: 1
 };
     const details=data?.data.data;
-return <>
+    return <>
+        <Helmet>
+    <meta charSet="utf-8" />
+    <title> {details.title} Product</title>
+    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+</Helmet>
     <div className="container position-relative py-5">
         <Link to="/products"><span role='button' className="text-white back border rounded bg-success bg-opacity-75 ms-3 mb-1 p-1 d-inline-block">
         <i className="fa-solid fa-arrow-left fa-2x"></i>

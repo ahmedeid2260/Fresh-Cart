@@ -6,14 +6,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 export default function Reset() {
-    useEffect(() => {
-        
-    <Helmet>
-    <meta charSet="utf-8" />
-    <title>Reset</title>
-    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
-</Helmet>
-    },[])
+
 async function sendResetUserData(resetUserData){
     try{
     await axios.post(`https://ecommerce.routemisr.com/api/v1/auth/forgotPasswords`,resetUserData)
@@ -43,7 +36,12 @@ function Submit(values){
     sendResetUserData(values);
 }
 
-return<>
+    return <>
+        <Helmet>
+    <meta charSet="utf-8" />
+    <title>Reset</title>
+    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+</Helmet>
 <div className="w-75 m-auto py-5">
     <h2>Reset Password : </h2>
 

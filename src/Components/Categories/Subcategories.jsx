@@ -5,14 +5,7 @@ import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom';
 import Loader from '../Loader/Loader';
 export default function Subcategories() {
-  useEffect(() => {
-    
-    <Helmet>
-    <meta charSet="utf-8" />
-    <title>Category Details</title>
-    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
-  </Helmet>
-  },[])
+
   const {id} = useParams();
   // cache Data
   const { data, isError, isLoading, error } = useQuery(
@@ -46,7 +39,13 @@ function getsubcategories(){
   return axios.get(`https://route-ecommerce.onrender.com/api/v1/categories/${id}/subcategories`)
 }
 
-return <>
+  return <>
+  
+  <Helmet>
+    <meta charSet="utf-8" />
+    <title>Category Details</title>
+    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+  </Helmet>
 <div className="container py-5">
 <Link to="/categories"><span role='button' className="text-white back border rounded bg-success bg-opacity-75 ms-3 mb-1 p-1 d-inline-block">
         <i className="fa-solid fa-arrow-left fa-2x"></i>

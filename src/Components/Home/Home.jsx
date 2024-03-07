@@ -9,13 +9,9 @@ import { Helmet } from "react-helmet";
 import Loader from "../Loader/Loader";
 import toast from "react-hot-toast";
 export default function Home() {
-  useEffect(() => {
-    
-    <Helmet>
-    <title>Home</title>
-</Helmet>
-  },[])
-  const { addToCart,addProductToWishlist } = useContext(cartAuthContext);
+  const { addToCart, addProductToWishlist, wishListItems } = useContext(cartAuthContext);
+  console.log(wishListItems);
+
   async function addMyProduct(productId){
     const result = await addToCart(productId)
     if(result){
@@ -134,6 +130,10 @@ export default function Home() {
   
   return (
     <>
+          
+    <Helmet>
+    <title>Home</title>
+</Helmet>
       <div className="container py-5">
         <div className="row">
           <div className="col-lg-9 col-md-6">
@@ -248,18 +248,28 @@ export default function Home() {
                   role="button"
                     className="heart"
                     onClick={function (e) {
-                      e.target.classList.add("text-danger")
+                      // e.target.classList.add("text-danger")
                       addToWishList(product.id)
                     }}
                   >
-                    <i className="fa-solid fa-heart"></i>
-                    {/* {toggleHeart ?
+                    {wishListItems?.includes(product.id) ?
                     <i className="fa-solid fa-heart text-danger"></i>
-                      :
+                    
+                  :
+                  <i className="fa-solid fa-heart"></i>
+                  
+                  }
+                    {/* {wishListItems.map((wishItem, i) => <>
+                      {
+                        wishItem.id === product.id ?
+                    <i className="fa-solid fa-heart text-danger"></i>
+                        
+                        :
+                      
                     <i className="fa-solid fa-heart"></i>
-                    } */}
-                    {/* //////////////////////// */}
-                  {/* هنا ممكن اتشك هل ال id بتعا البرودكت موجود في صهسامهسف ولا لا لو اه يبقي نخلي لونه احمر */}
+                      
+                      }</>
+                    )} */}
                   </div>
                 </div>
               </div>

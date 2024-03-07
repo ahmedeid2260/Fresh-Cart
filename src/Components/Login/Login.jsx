@@ -10,14 +10,7 @@ import { Helmet } from "react-helmet";
 import { cartAuthContext } from "../../Context/CartAuthProvider/CartAuthProvider";
 
 export default function Login() {
-  useEffect(() => {
-  
-    <Helmet>
-    <meta charSet="utf-8" />
-    <title>Login</title>
-    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
-  </Helmet>
-},[])
+
   const [isSeccess, setIsSeccess] = useState(null);
   const [errorMeaasge, setErrorMeaasge] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
@@ -92,6 +85,11 @@ export default function Login() {
 
   return (
     <>
+          <Helmet>
+    <meta charSet="utf-8" />
+    <title>Login</title>
+    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+  </Helmet>
         <div className="w-75 m-auto py-5">
           <h2>Login Now : </h2>
 

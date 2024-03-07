@@ -5,13 +5,7 @@ import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom';
 import Loader from '../Loader/Loader';
 export default function SpecificSubCategories() {
-  useEffect(() => {
-  
-    <Helmet>
-    <meta charSet="utf-8" />
-  <title>{subcategories[0].brand.name}</title>
-</Helmet>
-},[])
+
 
   const { id } = useParams();
 
@@ -48,7 +42,10 @@ export default function SpecificSubCategories() {
 
 
 return <>
-  
+      <Helmet>
+    <meta charSet="utf-8" />
+  <title>{subcategories[0].brand.name}</title>
+</Helmet>
     <div className="text-center text-success w-50  container py-5">
       <div className="row g-4">
         {subcategories.map((brand, index) => (

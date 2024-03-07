@@ -8,14 +8,7 @@ import { Helmet } from "react-helmet";
 import Loader from "../Loader/Loader";
 import toast from "react-hot-toast";
 export default function Products() {
-  useEffect(() => {
-    
-    <Helmet>
-    <meta charSet="utf-8" />
-    <title>Products</title>
-    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
-  </Helmet>
-  },[])
+
   const { addToCart, addProductToWishlist } = useContext(cartAuthContext);
   
   async function addMyProduct(productId){
@@ -61,6 +54,11 @@ async function addToWishList(productId){
 
   return (
     <>
+          <Helmet>
+    <meta charSet="utf-8" />
+    <title>Products</title>
+    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+  </Helmet>
       <div className="container py-5">
         <div className="row g-4">
           {product.map((product, index) => (

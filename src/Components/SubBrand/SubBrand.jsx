@@ -6,13 +6,7 @@ import Loader from '../Loader/Loader';
 import { Helmet } from 'react-helmet';
 
 export default function SubBrand() {
-  useEffect(() => {
-    
-    <Helmet>
-    <meta charSet="utf-8" />
-  <title>{brandData[0].brand.name}</title>
-</Helmet>
-  },[])
+
   const { id } = useParams();
 
   async function displaySubBrand() {
@@ -40,6 +34,10 @@ export default function SubBrand() {
       }
 const brandData=data?.data.data
   return <>
+        <Helmet>
+    <meta charSet="utf-8" />
+  <title>{brandData[0].brand.name}</title>
+</Helmet>
     <div className="text-center text-success w-50  container py-5">
       <div className="row g-4">
         {brandData.map((brand, index) => (

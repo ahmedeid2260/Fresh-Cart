@@ -9,14 +9,7 @@ import { Link } from "react-router-dom";
 // import Reset from './../Reset/Reset';
 
 export default function Cart() {
-  useEffect(() => {
-    
-    <Helmet>
-    <meta charSet="utf-8" />
-    <title>Cart</title>
-    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
-  </Helmet>
-  },[])
+
   async function deleteAllProducts() {
     const result = deleteAllCartProduct();
     if (result) {
@@ -80,7 +73,11 @@ export default function Cart() {
   }
   return (
     <>
-
+    <Helmet>
+    <meta charSet="utf-8" />
+    <title>Cart</title>
+    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+  </Helmet>
         <div className="container py-5">
           <div className="d-flex align-items-center justify-content-between">
             <div className="leftSide">

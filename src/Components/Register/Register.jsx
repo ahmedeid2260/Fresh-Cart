@@ -7,14 +7,7 @@ import { RotatingLines } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 export default function Register() {
-  useEffect(() => {
-    
-    <Helmet>
-    <meta charSet="utf-8" />
-    <title>Register</title>
-    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
-  </Helmet>
-  },[])
+
   const [isSeccess, setIsSeccess] = useState(null);
   const [errorMeaasge, setErrorMeaasge] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
@@ -96,6 +89,11 @@ export default function Register() {
   });
   return (
     <>
+          <Helmet>
+    <meta charSet="utf-8" />
+    <title>Register</title>
+    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+  </Helmet>
       <div className="w-75 m-auto py-5">
         <h2>Register Now : </h2>
         {isSeccess ? (

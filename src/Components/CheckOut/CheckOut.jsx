@@ -8,14 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 export default function CheckOut() {
-  useEffect(() => {
-    
-    <Helmet>
-    <meta charSet="utf-8" />
-    <title>Check Out</title>
-    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
-  </Helmet>
-  },[])
+
   const navigate = useNavigate();
 
   const {
@@ -135,6 +128,11 @@ export default function CheckOut() {
 
   return (
     <>
+          <Helmet>
+    <meta charSet="utf-8" />
+    <title>Check Out</title>
+    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+  </Helmet>
       <div className="container py-5">
         <form onSubmit={formik.handleSubmit} className="pay">
           <label className="fw-bold" htmlFor="phone">

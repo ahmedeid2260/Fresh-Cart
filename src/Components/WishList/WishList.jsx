@@ -5,14 +5,7 @@ import { cartAuthContext } from "../../Context/CartAuthProvider/CartAuthProvider
 import Loader from "../Loader/Loader";
 import { useQuery } from "react-query";
 export default function WishList() {
-  useEffect(() => {
-    
-    <Helmet>
-    <meta charSet="utf-8" />
-    <title>WishList</title>
-    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
-  </Helmet>
-  },[])
+
   const {
     addToCart,
     wishListItems,
@@ -80,7 +73,11 @@ export default function WishList() {
 
   return (
     <>
-
+    <Helmet>
+    <meta charSet="utf-8" />
+    <title>WishList</title>
+    {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+  </Helmet>
         <div className="container py-5">
               <h2 className="text-success text-center">WishList Cart</h2>
 

@@ -6,11 +6,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
 export default function AllOrders() {
-    useEffect(() => {
-        <Helmet>
-        <title>All Orders</title>
-            </Helmet>
-    },[])
+
     const ordersId = sessionStorage.getItem("ordersId");
 async function getUserOrders() {
     return await axios
@@ -38,7 +34,9 @@ if (isError) {
     // console.log(orders);
 return (
     <>
-
+        <Helmet>
+        <title>All Orders</title>
+            </Helmet>
         <div className="container text-center py-5">
             <h2 >All Orders</h2>
             <div  className="row g-4">
