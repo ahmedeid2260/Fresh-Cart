@@ -9,7 +9,7 @@ export default function WishList() {
   const {
     addToCart,
     wishListItems,
-    removeProductFromWishlist,
+    deleteProduct,
     getLoggedUserWishlist,
   } = useContext(cartAuthContext);
 
@@ -48,15 +48,14 @@ export default function WishList() {
     }
   }
 
-  function deleteSelectedProduct(productId) {
-    const result = removeProductFromWishlist(productId);
-    // console.log("array after deletion",result);
-    if (result) {
-      toast.success("Product Deleted");
-    } else {
-      toast.error("Deletion error occured");
+  function deleteFromWish(id) {
+    toast.promise( deleteProduct(id), {
+      loading: 'Loading',
+      success: 'Product Deleted From WishList successfully',
+      error: 'Error in Delete Product try again ',
+      });
     }
-  }
+
 
   if (!item) {
     return <Loader />;
@@ -82,10 +81,6 @@ export default function WishList() {
               <h2 className="text-success text-center">WishList Cart</h2>
 
           {item?.map((product, index) => {
-            //!......//
-            // كمل من هنا......
-            // console.log("productssssss", product);
-            // console.log("productid",product.id);
             return (
               <div
                 key={index}
@@ -123,7 +118,7 @@ export default function WishList() {
                           <p> Price : {product.price} Egp</p>
                         )}
                         <button
-                          onClick={() => deleteSelectedProduct(product._id)}
+                          onClick={() => deleteFromWish(product._id)}
                           className="btn btn-outline-danger"
                         >
                           remove

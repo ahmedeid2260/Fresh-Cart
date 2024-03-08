@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import deatilsCss from "../Products/Products.module.css"
 import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom'
@@ -11,9 +11,25 @@ import { Helmet } from 'react-helmet';
 import Loader from '../Loader/Loader';
 import toast from 'react-hot-toast';
 export default function ProductDetails() {
+    const { addToCart,addToWishlist,deleteProduct,productWishIds } =
+    useContext(cartAuthContext);
 
-    const { addToCart } = useContext(cartAuthContext);
-    
+function addToWish (id){
+    toast.promise( addToWishlist(id), {
+    loading: 'Loading',
+    success: 'Product added to WishList successfully',
+    error: 'Error in add Product try again ',
+    });
+}
+
+    function deleteFromWish(id) {
+    toast.promise( deleteProduct(id), {
+    loading: 'Loading',
+    success: 'Product Deleted From WishList successfully',
+    error: 'Error in Delete Product try again ',
+    });
+    }
+
     async function addMyProduct(productId){
     const result = await addToCart(productId)
     if(result){
@@ -104,11 +120,12 @@ var settings = {
                         }}
                     >
                         Add To Cart
-                    </button>
-                    <div onClick={function(){
-                    }} role="button" >
-                    <i className="fa-solid fa-heart"></i>
-                    </div>
+                        </button>
+                        
+                {productWishIds.includes(details.id) ?
+                    <button className="rounded-2  bg-success text-danger fs-5 " onClick={() => deleteFromWish(details.id)}><i className="fa-solid fa-heart"></i></button>
+                    : <button className=" rounded-2 bg-success  fs-5" onClick={() => addToWish(details.id)} ><i className="fa-solid fa-heart"></i></button>}
+            
                 </div>
             </div>
         </div>

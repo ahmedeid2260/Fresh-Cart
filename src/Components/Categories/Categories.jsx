@@ -42,7 +42,8 @@ export default function Categories() {
           {category.map((category, index) => (
             <div key={index} className="col-xl-3 col-lg-4 col-md-6">
               <div className="category position-relative border border-3">
-                <Link to={`/subcategories/${category._id}`}>
+                {/* <Link to={`/subcategories/${category._id}`}> */}
+                <Link to={`/SpecificSubCategories/${category._id}`}>
                   <img
                     className="w-100 "
                     style={{ height: "200px" }}

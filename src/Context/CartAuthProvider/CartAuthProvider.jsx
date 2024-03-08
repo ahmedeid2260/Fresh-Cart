@@ -13,6 +13,8 @@ export default function CartAuthProvider({ children }) {
   // cart owner is for all orders
   const [cartOwner, setCartOwner] = useState(null);
   const [products, setProducts] = useState(null);
+  const [productWishIds, setproductWishIds] = useState([]);
+  const productWishIdsArry = [];
 
   useEffect(()=>{
     if(localStorage.getItem('token')!=null){
@@ -128,6 +130,11 @@ export default function CartAuthProvider({ children }) {
       // console.log("data when click on wishlist", res.data.data);
       setWishListItems(res.data.data)
       setNumOfWishListItems(res.data.data.length)
+      setproductWishIds([])
+      for(let i =  0 ; i < res.data.data.length ; i++) {
+        productWishIdsArry.push(res.data.data[i].id);
+        setproductWishIds(productWishIdsArry)
+    }
       // return true
     }).catch((err)=>{
       // console.log("error after click wishlist",err);
@@ -135,38 +142,36 @@ export default function CartAuthProvider({ children }) {
     })
   }
 
-  async function addProductToWishlist(productId){
-    const result= await axios.post(`https://ecommerce.routemisr.com/api/v1/wishlist`,{
-      "productId": productId
-  },{headers:{
-    token:localStorage.getItem("token")
-    }
-    }).then((res) => {
+  function addToWishlist(productId) {
+    return axios.post(
+      `https://ecommerce.routemisr.com/api/v1/wishlist`,
+      {
+        productId,
+      },
+      {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      }
+    ).then((res)=> {
       getLoggedUserWishlist()
-    // console.log("data when add to wishlist",res);
-    return true
-  }).catch((err)=>{
-    // console.log("error when click add to wishlist",err);
-    return false
-  })
-  return result
+      // console.log("res wish",res);
+    }).catch((err) => {
+      // console.log("res err wish",err);
+      
+    })
   }
 
-async function removeProductFromWishlist(productId){
-  const result= await axios.delete(`https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`,{
-    headers:{
-      token:localStorage.getItem("token")
-    }
-  }).then((res) => {
-    getLoggedUserWishlist()
-    // console.log("data after delete from wishlist",res);
-    return true
-  }).catch((err)=>{
-    // console.log("error when click delete from wishlist",err);
-    return false
-  })
-  return result
-}
+  function deleteProduct(productId) {
+    return axios.delete(`https://ecommerce.routemisr.com/api/v1/wishlist/${productId}` , {
+      headers: {
+        token : localStorage.getItem('token')
+      }
+    })
+    .then(()=> {
+      getLoggedUserWishlist()
+    })
+  }
 
 async function getAllOrders(){
   const result= await axios.get(`https://ecommerce.routemisr.com/api/v1/orders`)
@@ -180,7 +185,6 @@ async function getAllOrders(){
   return result
 }
 
-
   return (
     <cartAuthContext.Provider
       value={{
@@ -193,16 +197,17 @@ async function getAllOrders(){
         getProductDetails,
         deleteCartProduct,
         deleteAllCartProduct,
-        addProductToWishlist,
+        addToWishlist,
         getLoggedUserWishlist,
         updateCartProductQuantity,
-        removeProductFromWishlist,
+        deleteProduct,
         getAllOrders,
         setProducts,
         setNumOfCartItems,
         setTotalCartPrice,
         setCartId,
         wishListItems,
+        productWishIds,
         cartOwner,
       }}
     >

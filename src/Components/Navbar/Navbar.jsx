@@ -32,7 +32,8 @@ function logout(){
       </button>
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        {token?        <ul className="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
+          {token ?
+            <ul className="navbar-nav m-auto mb-2 mb-lg-0 align-items-center">
         <li className="nav-item">
             <Link className="nav-link active" to="home">Home</Link>
           </li>
@@ -41,7 +42,7 @@ function logout(){
               <div className="position-relative p-1">
                 Cart
             <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
-                  {numOfCartItems}
+                    {numOfCartItems ?  numOfCartItems : ""}
                 </span>
               </div>
             </Link>
@@ -52,7 +53,7 @@ function logout(){
               <div className="position-relative p-1">
                 WishList
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  {numOfWishListItems}
+                    {numOfWishListItems ?  numOfWishListItems : ""}
                 </span>
                 </div>
                 </Link>
@@ -81,13 +82,7 @@ function logout(){
             <Link to='/profile'><span className={ NavbarCss.logout + `  ` }>{name}</span></Link>
             
             <span role="button" onClick={logout} className={ NavbarCss.logout + `  ` }>Logout</span>
-            {/* <Link to='/cart' >
-            <div className="position-relative">                                       
-            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
-                  {numOfCartItems}
-                </span>
-            <i className={` fa-solid fa-cart-shopping fs-3`}></i>
-            </div></Link> */}
+            
           </div>
           :<>
           <li className="nav-item">

@@ -2,15 +2,33 @@ import axios from "axios";
 import ProductsCss from "./Products.module.css";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { cartAuthContext } from "../../Context/CartAuthProvider/CartAuthProvider";
 import { Helmet } from "react-helmet";
 import Loader from "../Loader/Loader";
 import toast from "react-hot-toast";
 export default function Products() {
 
-  const { addToCart, addProductToWishlist } = useContext(cartAuthContext);
+  const { addToCart,addToWishlist,deleteProduct,productWishIds } = useContext(cartAuthContext);
   
+
+  function addToWish (id){
+    toast.promise( addToWishlist(id), {
+      loading: 'Loading',
+      success: 'Product added to WishList successfully',
+      error: 'Error in add Product try again ',
+      });
+  }
+
+    function deleteFromWish(id) {
+    toast.promise( deleteProduct(id), {
+      loading: 'Loading',
+      success: 'Product Deleted From WishList successfully',
+      error: 'Error in Delete Product try again ',
+      });
+    }
+
+
   async function addMyProduct(productId){
     const result = await addToCart(productId)
     if(result){
@@ -19,15 +37,6 @@ export default function Products() {
       toast.error("SomeThing Went Wrong.....",{position:"top-center"})
     }
   }
-
-async function addToWishList(productId){
-      const result = await addProductToWishlist(productId)
-      if(result){
-        toast.success("Product Saved To WishList Successfully",{position:"top-center"})
-      }else{
-        toast.error("SomeThing Went Wrong.....",{position:"top-center"})
-      }
-}
 
   // cache Data
   const { data, isError, isLoading } = useQuery(`getproduct`, getAllProduct, {
@@ -111,13 +120,11 @@ async function addToWishList(productId){
                   >
                     Add To Cart
                   </button>
-                  <div
-                  onClick={()=>addToWishList(product.id)}
-                    role="button"
-                  >
-                    <i className="fa-solid fa-heart"></i>
-                    
-                  </div>
+                  
+                  {productWishIds.includes(product.id) ?
+                    <button className="rounded-2  bg-success text-danger fs-5 " onClick={() => deleteFromWish(product.id)}><i className="fa-solid fa-heart"></i></button>
+                    : <button className=" rounded-2 bg-success  fs-5" onClick={() => addToWish(product.id)} ><i className="fa-solid fa-heart"></i></button>}
+                
                 </div>
               </div>
             </div>

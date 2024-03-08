@@ -1,5 +1,4 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet';
 import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom';
@@ -33,7 +32,7 @@ export default function SpecificSubCategories() {
     );
   }
   const subcategories = data?.data.data;
-// console.log(subcategories);
+console.log(subcategories);
   if (subcategories.length === 0 ) {
     return <div className="bg-main text-white text-center  container py-5">
     <h1>Categories List is Empty now ...</h1>
@@ -46,7 +45,7 @@ return <>
     <meta charSet="utf-8" />
   <title>{subcategories[0].brand.name}</title>
 </Helmet>
-    <div className="text-center text-success w-50  container py-5">
+    <div className="text-center text-success  container py-5">
       <div className="row g-4">
         {subcategories.map((brand, index) => (
           <div key={index} className="col-xl-4 col-lg-4 col-md-6">
