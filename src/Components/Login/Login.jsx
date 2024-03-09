@@ -18,13 +18,6 @@ export default function Login() {
   const { setToken,name } = useContext(authContext);
   const { getProductDetails, getLoggedUserWishlist } =
     useContext(cartAuthContext);
-  
-  function showPassword() {
-    document
-      .querySelector(".toggleEye")
-      .classList.toggle("fa-eye", "fa-eye-slash");
-    document.querySelector(".passwordInput").removeAttribute("type");
-  }
 
   async function sendLoginUserData(loginUserData) {
     try {
@@ -141,13 +134,6 @@ export default function Login() {
                 type="password"
                 placeholder="Enter Your Password ..."
               />
-              <button
-                type="button"
-                onClick={showPassword}
-                className="border-0 bg-transparent eye"
-              >
-                <i className="fa-solid fa-eye-slash toggleEye"></i>
-              </button>
             </div>
             {loginFormik.errors.password && loginFormik.touched.password ? (
               <div className="alert alert-danger w-100">

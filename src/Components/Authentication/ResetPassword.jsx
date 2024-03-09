@@ -1,10 +1,9 @@
-import ResetCss from "./ForgetPassword.module.css";
 import { object, string } from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { authContext } from "../../Context/LoggedAuthProvider/LoggedAuthProvider";
 
 export default function ResetPassword() {

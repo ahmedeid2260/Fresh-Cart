@@ -13,14 +13,6 @@ export default function Register() {
   const [isLoading, setIsLoading] = useState(null);
   const navigate = useNavigate()
 
-  function showPassword(){
-    document.querySelector('.toggleEye').classList.toggle('fa-eye','fa-eye-slash');
-    document.querySelector(".passwordInput").removeAttribute("type");
-  }
-  function showRePassword(){
-    document.querySelector('.toggledEye').classList.toggle('fa-eye','fa-eye-slash');
-    document.querySelector(".rePasswordInput").removeAttribute("type");
-  }
   async function sendUserDate(userData) {
     try {
       // const response = await axios.post(
@@ -175,9 +167,6 @@ export default function Register() {
             type="password"
             placeholder="Enter Your Password ..."
           />
-            <button type="button" onClick={showPassword} className="border-0 bg-transparent eye">
-            <i className="fa-solid fa-eye-slash toggleEye"></i>
-            </button>
           </div>
           {formik.errors.password && formik.touched.password ? (
             <div className="alert alert-danger w-100">
@@ -198,9 +187,6 @@ export default function Register() {
             type="password"
             placeholder="Enter Your password ..."
           />
-            <button type="button" onClick={showRePassword} className="border-0 bg-transparent eye">
-            <i className="fa-solid fa-eye-slash toggledEye"></i>
-            </button>
           </div>
           {formik.errors.rePassword && formik.touched.rePassword ? (
             <div className="alert alert-danger w-100">

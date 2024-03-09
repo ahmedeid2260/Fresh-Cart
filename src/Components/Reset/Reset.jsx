@@ -1,7 +1,7 @@
 import ResetCss from "./Reset.module.css"
 import { object, string } from 'yup';
 import { useFormik } from "formik";
-import React, { useEffect } from 'react'
+import React from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
