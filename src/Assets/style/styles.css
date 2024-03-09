@@ -24,11 +24,11 @@ a , a:hover{
     color: black;
     text-decoration: none;
 }
-.product:hover
+/* .product:hover
 {
     box-shadow: var(--shadow);
     border: solid 1px 10px var(--main-color);
-}
+} */
 .product .btn 
 {
     transition: transform 1s , opacity 1s;
@@ -70,10 +70,10 @@ a , a:hover{
     top: -15px;
     right: 0;
 }
-.category , .brand , .subcategories{
+.category , .brand , .product, .subcategories{
     transition: .5s;
 }
-.category:hover , .brand:hover , .subcategories:hover{
+.category:hover , .brand:hover , .product:hover , .subcategories:hover{
     box-shadow: 0 0 10px 1px black;
 }
 .eye{
