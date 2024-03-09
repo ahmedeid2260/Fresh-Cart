@@ -2,7 +2,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import { cartAuthContext } from "../../Context/CartAuthProvider/CartAuthProvider";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -102,7 +102,7 @@ export default function CheckOut() {
         { chippingAddress },
         {
           params: {
-            url: `http://localhost:3000`,
+            url: `https://fresh-cart-olive.vercel.app/`
           },
           headers: {
             token: localStorage.getItem("token"),

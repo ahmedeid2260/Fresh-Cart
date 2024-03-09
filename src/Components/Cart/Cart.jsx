@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
 // import * as CartCss from "./Cart.module.css"
-import React, { useEffect } from "react";
+import React from "react";
 import { useContext } from "react";
 import { cartAuthContext } from "../../Context/CartAuthProvider/CartAuthProvider";
 import Loader from "../Loader/Loader";
