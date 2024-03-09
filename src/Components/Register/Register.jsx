@@ -2,7 +2,7 @@
 import { object, ref, string } from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -32,7 +32,7 @@ export default function Register() {
       setIsSeccess(true);
       setTimeout(() => {
       setIsSeccess(false);
-      navigate('/login');
+      navigate('/');
       }, 2000);
       setIsLoading(false);
     } catch (error) {
