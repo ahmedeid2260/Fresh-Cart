@@ -49,7 +49,7 @@ function Submit(values){
     <label htmlFor="email">email :</label>
     <input className="my-2 form-control " value={resetFormik.values.email}  onInput={resetFormik.handleBlur} onChange={resetFormik.handleChange} id="email" type="email" placeholder="Enter Your Email ..." />
     <div className="forget d-flex  justify-content-between my-3">
-        <Link className={ResetCss.reset} to="/login">Login</Link>
+        <Link className={ResetCss.reset} to="/">Login</Link>
         <Link className={ResetCss.reset} to="/register">Register</Link>
     </div>
         <button className="btn btn-success" type="submit">Reset</button>

@@ -29,7 +29,7 @@ async function sendresetPasswordData(resetPasswordData) {
     localStorage.setItem("newToken",token)
     setTimeout(() => {
         setIsSeccess(false);
-        navigate("/login");
+        navigate("/");
     }, 2000);
     setIsLoading(false);
     } catch (error) {
