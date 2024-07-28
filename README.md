@@ -7,15 +7,15 @@ The application uses the Context API for state management and integrates a real-
 
 # Table of Contents
 
-Features
+- Features
 
-Getting Started
+- Getting Started
 
-Prerequisites
+- Prerequisites
 
-Installation
+- Installation
 
-Usage
+- Usage
 
 # Features
 
@@ -47,29 +47,29 @@ npm (version 6.x or higher) or yarn (version 1.x or higher)
 
 Clone the repository
 
-git clone https://github.com/ahmedeid-dev/Fresh-Cart.git
+- git clone https://github.com/ahmedeid-dev/Fresh-Cart.git
 
-Navigate to the project directory
+- Navigate to the project directory
 
-cd freshcart
+- cd freshcart
 
 # Install the dependencies
 
- npm install
+-  npm install
  
 Or
 
- yarn install
+ - yarn install
  
 # Usage
 
 
 Start the development server
 
- npm start
+ - npm start
 
 Or
 
-yarn start
+- yarn start
 
 Open https://fresh-cart-olive.vercel.app/ to view it in your browser.
