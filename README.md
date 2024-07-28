@@ -28,7 +28,8 @@ Node.js (version 14.x or higher)
 npm (version 6.x or higher) or yarn (version 1.x or higher)
 Installation
 Clone the repository
-sh
+
+
 Copy code
 git clone https://github.com/your-username/freshcart.git
 Navigate to the project directory
