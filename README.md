@@ -1,10 +1,9 @@
 # Fresh-Cart
 ## Url :https://fresh-cart-olive.vercel.app/
 
-FreshCart
 FreshCart is a full-featured e-commerce web application built using React.js. The application uses the Context API for state management and integrates a real-world payment gateway for seamless transactions.
 
-Table of Contents
+# Table of Contents
 Features
 Getting Started
 Prerequisites
